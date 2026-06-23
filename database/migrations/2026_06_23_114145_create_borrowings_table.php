@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Book;
+use App\Models\Member;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,7 +15,16 @@ return new class extends Migration
     {
         Schema::create('borrowings', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(Book::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Member::class)->constrained()->cascadeOnDelete();
+            $table->date('borrowed_date');
+            $table->date('due_date');
+            $table->date('returned_date')->nullable();
+            $table->enum('status' , ['borrowed' , 'returned' , 'overdue'])->default('borrowed');
             $table->timestamps();
+
+            $table->index(['member_id' , 'status']);
+            $table->index('due_date');
         });
     }
 
