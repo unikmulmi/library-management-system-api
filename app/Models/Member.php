@@ -11,7 +11,13 @@ class Member extends Model
     /** @use HasFactory<\Database\Factories\MemberFactory> */
     use HasFactory;
 
-    protected $fillable = ['name' , 'email' , 'address' , 'membership_date' , 'status'];
+    protected $fillable = [
+        'name',
+        'email',
+        'address',
+        'membership_date',
+        'status'
+    ];
 
     protected $casts = [
         'membership_date' => 'date',
@@ -24,6 +30,6 @@ class Member extends Model
 
     public function activeBorrowings(): HasMany
     {
-        return $this->borrowings()->where('status' , 'borrowed');
+        return $this->borrowings()->where('status', 'borrowed');
     }
 }

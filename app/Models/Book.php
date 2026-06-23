@@ -12,7 +12,18 @@ class Book extends Model
     /** @use HasFactory<\Database\Factories\BookFactory> */
     use HasFactory;
 
-    protected $fillable = ['title' , 'isbn' , 'description' , 'author_id' , 'genre' , 'published_at' , 'total_copies' , 'available_copies' , 'cover_image' , 'status'];
+    protected $fillable = [
+        'title',
+        'isbn',
+        'description',
+        'author_id',
+        'genre',
+        'published_at',
+        'total_copies',
+        'available_copies',
+        'cover_image',
+        'status'
+    ];
 
     public function author(): BelongsTo
     {
@@ -26,19 +37,19 @@ class Book extends Model
 
     public function isAvailable(): bool
     {
-        return $this->available_copies > 0 ;
+        return $this->available_copies > 0;
     }
 
     public function borrow(): void
     {
-        if ($this->available_copies > 0){
+        if ($this->available_copies > 0) {
             $this->decrement('available_copies');
         }
     }
 
     public function returnBook(): void
     {
-        if ($this->available_copies < $this->total_copies){
+        if ($this->available_copies < $this->total_copies) {
             $this->increment('available_copies');
         }
     }

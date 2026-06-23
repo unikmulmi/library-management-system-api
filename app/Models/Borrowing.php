@@ -12,7 +12,14 @@ class Borrowing extends Model
     /** @use HasFactory<\Database\Factories\BorrowingFactory> */
     use HasFactory;
 
-    protected $fillable = ['book_id' , 'member_id' , 'borrowed_date' , 'due_date' , 'returned_date' , 'status'];
+    protected $fillable = [
+        'book_id',
+        'member_id',
+        'borrowed_date',
+        'due_date',
+        'returned_date',
+        'status'
+    ];
 
     protected $casts = [
         'borrowed_date' => 'date',
