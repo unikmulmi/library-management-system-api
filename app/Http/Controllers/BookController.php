@@ -11,7 +11,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -19,7 +19,7 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -27,7 +27,7 @@ class BookController extends Controller
      */
     public function show(string $id)
     {
-        //
+        
     }
 
     /**
@@ -35,7 +35,7 @@ class BookController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        
     }
 
     /**
@@ -43,6 +43,6 @@ class BookController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        
     }
 }
