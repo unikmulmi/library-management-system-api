@@ -4,6 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
 
 class StoreMemberRequest extends FormRequest
 {
@@ -23,7 +25,16 @@ class StoreMemberRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|max:255',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('members', 'email')->ignore($this->route('member')->id), // Ignore the current member's email when updating
+            ],
+            'phone' => 'nullable|string',
+            'address' => 'nullable|string',
+            'membership_date' => 'date',
+            'status' => 'required',
         ];
     }
 }
