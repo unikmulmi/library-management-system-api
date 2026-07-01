@@ -71,20 +71,30 @@ class MemberController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Member $member)
+    public function destroy(string $id)
     {
-        // Check if member has any active borrowings 
+        try {
 
-        if ($member->activeBorrowings()->count() > 0){
+            $member = Member::findOrFail($id);
+
+            // Check if member has any active borrowings 
+
+            if ($member->activeBorrowings()->count() > 0) {
+                return response()->json([
+                    'message' => 'Cannot Delete Member with Active Borrowings!',
+                ], 422);
+            }
+
+            $member->delete();
+
             return response()->json([
-                'message' => 'Cannot Delete Member with Active Borrowings!',
-            ] , 422);
+                'message' => 'Member Deleted Successfully!',
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'No data Found!',
+            ]);
         }
-
-        $member->delete();
-
-        return response()->json([
-            'message' => 'Member Deleted Successfully!',
-        ]);
     }
 }
