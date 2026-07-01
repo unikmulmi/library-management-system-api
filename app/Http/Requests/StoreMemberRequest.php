@@ -26,12 +26,7 @@ class StoreMemberRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => [
-                'required',
-                'email',
-                Rule::unique('members', 'email')->ignore($this->route('member')->id), // Ignore the current member's email when updating
-            ],
-            'phone' => 'nullable|string',
+            'email' => 'required|email|unique:members,email',
             'address' => 'nullable|string',
             'membership_date' => 'date',
             'status' => 'required',

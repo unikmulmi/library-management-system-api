@@ -4,9 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class StoreBookRequest extends FormRequest
+class UpdateBookRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +24,12 @@ class StoreBookRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'isbn' => 'required|string|unique:books,isbn',
+            'isbn' => [
+                'required',
+                'string',
+                'max:20',
+                Rule::unique('books', 'isbn'),
+            ],
             'description' => 'nullable|string',
             'author_id' => 'required|exists:authors,id',
             'genre' => 'nullable|string',

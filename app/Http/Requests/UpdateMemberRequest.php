@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreBookRequest extends FormRequest
+class UpdateMemberRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,14 +24,15 @@ class StoreBookRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:255',
-            'isbn' => 'required|string|unique:books,isbn',
-            'description' => 'nullable|string',
-            'author_id' => 'required|exists:authors,id',
-            'genre' => 'nullable|string',
-            'published_at' => 'nullable|date',
-            'total_copies' => 'required|integer|min:1',
-            'cover_image' => 'nullable|string',
+            'name' => 'required|string|max:255',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('members', 'email')->ignore($this->route('member')->id), // Ignore the current member's email when updating
+            ],
+            'address' => 'nullable|string',
+            'membership_date' => 'date',
+            'status' => 'required',
         ];
     }
 }
