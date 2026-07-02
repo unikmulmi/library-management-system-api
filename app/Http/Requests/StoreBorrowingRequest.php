@@ -12,7 +12,7 @@ class StoreBorrowingRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,10 @@ class StoreBorrowingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'book' => 'required|exists:book,id',
+            'member_id' => 'required|exists:members,id', //exists:table,column
+            'borrowed_date' => 'nullable|date',
+            'due_date' => 'nullable|date|after:borrowed_date', // after:date
         ];
     }
 }
