@@ -15,18 +15,18 @@ class BorrowingController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Borrowing::with(['book' , 'member']);
+        $query = Borrowing::with(['book', 'member']);
 
         // Filter by status
 
-        if ($request->has('status')){
-            $query->where('status' , $request->status);
+        if ($request->has('status')) {
+            $query->where('status', $request->status);
         }
 
         // Filter by member
 
-        if ($request->has('member_id')){
-            $query->where('member_id' , $request->member_id);
+        if ($request->has('member_id')) {
+            $query->where('member_id', $request->member_id);
         }
 
         $borrowings = $query->latest()->paginate(15);
@@ -43,7 +43,7 @@ class BorrowingController extends Controller
 
         // Check if book is available
 
-        if (!$book->isAvailable()){
+        if (!$book->isAvailable()) {
             return response()->json([
                 'message' => 'Book is not available for borrowing'
             ], 422);
@@ -55,10 +55,9 @@ class BorrowingController extends Controller
         // Update Book Availability
         $book->borrow();
 
-        $borrowing->load(['book' , 'member']);
+        $borrowing->load(['book', 'member']);
 
         return new BorrowingResource($borrowing);
-
     }
 
     /**
@@ -66,17 +65,17 @@ class BorrowingController extends Controller
      */
     public function show(Borrowing $borrowing)
     {
-        $borrowing->load(['book' , 'member']);
+        $borrowing->load(['book', 'member']);
 
         return new BorrowingResource($borrowing);
     }
 
     public function returnBook(Borrowing $borrowing)
     {
-        if ($borrowing->status !== 'borrowed'){
+        if ($borrowing->status !== 'borrowed') {
             return response()->json([
                 'message' => 'Book has already been returned'
-            ] , 422);
+            ], 422);
         }
 
         // Update borrowing record
@@ -88,27 +87,24 @@ class BorrowingController extends Controller
         // Update book availability
         $borrowing->book->returnBook();
 
-        $borrowing->load(['book' , 'member']);
+        $borrowing->load(['book', 'member']);
 
         return new BorrowingResource($borrowing);
-
     }
 
     public function overdue()
     {
-        $overdueBorrowings = Borrowing::with(['book' , 'member'])
+        $overdueBorrowings = Borrowing::with(['book', 'member'])
             ->where('status', 'borrowed')
             ->where('due_date', '<', now())
             ->get();
 
         // Update status to overdue for all overdue borrowings
-        
-        Borrowing::where('status' , 'borrowed')
-            ->where('due_date' , '<' , now())
+
+        Borrowing::where('status', 'borrowed')
+            ->where('due_date', '<', now())
             ->update(['status' => 'overdue']);
 
         return BorrowingResource::collection($overdueBorrowings);
     }
-
-
 }
