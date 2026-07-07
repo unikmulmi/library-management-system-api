@@ -18,7 +18,7 @@ class AuthorResource extends JsonResource
             'name' => strtoupper($this->name),
             'bio' => $this->bio,
             'nationality' => strtolower($this->nationality),
-            'books' => $this->when($this->relationLoaded('books') , $this->books->count()),
+            'books' => $this->when($this->relationLoaded('books'), $this->books->count()),
         ];
     }
 }

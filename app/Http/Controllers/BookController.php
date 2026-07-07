@@ -19,23 +19,21 @@ class BookController extends Controller
 
         // Search Functionality
 
-        if($request->has('search')){
+        if ($request->has('search')) {
             $search = $request->search;
 
-            $query->where(function ($q) use($search){
-                $q->where('title' , 'like' , "%{$search}%")
-                ->orWhere('isbn' , 'like' , "%{$search}%")
-                ->orWhereHas('author' , function($authorQuery) use ($search){
-                    $authorQuery->where('name', 'like' , "%{$search}%");
-
-                });
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                    ->orWhere('isbn', 'like', "%{$search}%")
+                    ->orWhereHas('author', function ($authorQuery) use ($search) {
+                        $authorQuery->where('name', 'like', "%{$search}%");
+                    });
             });
-
         }
 
         // Filter Functionality
-        if ($request->has('genre')){
-            $query->where('genre' , $request->genre);
+        if ($request->has('genre')) {
+            $query->where('genre', $request->genre);
         }
         $books = $query->paginate(10);
 

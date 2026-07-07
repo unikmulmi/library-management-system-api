@@ -43,7 +43,7 @@ class AuthorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreAuthorRequest $request , Author $author)
+    public function update(StoreAuthorRequest $request, Author $author)
     {
         $author->update($request->validated());
 

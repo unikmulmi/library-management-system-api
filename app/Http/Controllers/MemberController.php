@@ -26,7 +26,7 @@ class MemberController extends Controller
             });
         }
 
-        if ($request->has('status')){
+        if ($request->has('status')) {
             $query->where('status', $request->status);
         }
 
@@ -45,7 +45,6 @@ class MemberController extends Controller
         $member = Member::create($request->validated());
 
         return new MemberResource($member);
-
     }
 
     /**
@@ -53,7 +52,7 @@ class MemberController extends Controller
      */
     public function show(Member $member)
     {
-        $member->load(['activeBorrowings' , 'borrowings']);
+        $member->load(['activeBorrowings', 'borrowings']);
 
         return new MemberResource($member);
     }
@@ -90,7 +89,6 @@ class MemberController extends Controller
             return response()->json([
                 'message' => 'Member Deleted Successfully!',
             ]);
-
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'No data Found!',
