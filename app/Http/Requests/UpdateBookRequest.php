@@ -28,7 +28,7 @@ class UpdateBookRequest extends FormRequest
                 'required',
                 'string',
                 'max:20',
-                Rule::unique('books', 'isbn'),
+                Rule::unique('books', 'isbn')->ignore($this->book),
             ],
             'description' => 'nullable|string',
             'author_id' => 'required|exists:authors,id',
@@ -36,6 +36,7 @@ class UpdateBookRequest extends FormRequest
             'published_at' => 'nullable|date',
             'total_copies' => 'required|integer|min:1',
             'cover_image' => 'nullable|string',
+            'status' => 'required|in:active,inactive',
         ];
     }
 }

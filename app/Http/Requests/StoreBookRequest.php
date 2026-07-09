@@ -32,6 +32,7 @@ class StoreBookRequest extends FormRequest
             'published_at' => 'nullable|date',
             'total_copies' => 'required|integer|min:1',
             'cover_image' => 'nullable|string',
+            'status' => 'required|in:active,inactive',
         ];
     }
 }
