@@ -60,4 +60,21 @@ class AuthController extends Controller
             'token' => $token,
         ]);
     }
+
+    // Get Authenticated Users
+
+    public function user(Request $request)
+    {
+        return new UserResource($request->user());
+    }
+
+    public function logout(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Logged Out Successfully!',
+        ]);
+    }
 }

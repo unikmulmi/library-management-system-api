@@ -13,38 +13,44 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+// Route::get('/user', function (Request $request) {
+//     return $request->user();
+// })->middleware('auth:sanctum');
 
 // Authentication routes
 
-Route::post('/register' , [AuthController::class , 'register']);
+Route::post('/register', [AuthController::class, 'register']);
 
-Route::post('/login' , [AuthController::class , 'login']);
+Route::post('/login', [AuthController::class, 'login']);
 
-Route::apiResource('authors' , AuthorController::class);
+Route::middleware('auth:sanctum')->group(function () {
 
-Route::apiResource('books' , BookController::class);
+    Route::get('/user', [AuthController::class, 'user']);
 
-Route::apiResource('members' , MemberController::class);
+    Route::post('/logout' , [AuthController::class , 'logout']);
 
-Route::apiResource('borrowings' , BorrowingController::class)->only(['index' , 'store' , 'show']);
+    Route::apiResource('authors', AuthorController::class);
 
-// Return & overDue
+    Route::apiResource('books', BookController::class);
 
-Route::post('borrowings/{borrowing}/return' , [BorrowingController::class , 'returnBook']);
-Route::get('borrowings/overdue/list' , [BorrowingController::class , 'overdue']);
+    Route::apiResource('members', MemberController::class);
 
-// Statistics
+    Route::apiResource('borrowings', BorrowingController::class)->only(['index', 'store', 'show']);
 
-Route::get('statistics' , function(){
-    return response()->json([
-        'total_books' => Book::count(),
-        'total_authors' => Author::count(),
-        'total_members' => Member::count(),
-        'books_borrowed' => Borrowing::where('status' , 'borrowed')->count(),
-        'overdue_borrowings' => Borrowing::where('status', 'overdue')->count(),
-    ]);
+    // Return & overDue
+
+    Route::post('borrowings/{borrowing}/return', [BorrowingController::class, 'returnBook']);
+    Route::get('borrowings/overdue/list', [BorrowingController::class, 'overdue']);
+
+    // Statistics
+
+    Route::get('statistics', function () {
+        return response()->json([
+            'total_books' => Book::count(),
+            'total_authors' => Author::count(),
+            'total_members' => Member::count(),
+            'books_borrowed' => Borrowing::where('status', 'borrowed')->count(),
+            'overdue_borrowings' => Borrowing::where('status', 'overdue')->count(),
+        ]);
+    });
 });
-
