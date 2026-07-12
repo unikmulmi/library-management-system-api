@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BorrowingController;
@@ -8,12 +9,19 @@ use App\Models\Author;
 use App\Models\Book;
 use App\Models\Borrowing;
 use App\Models\Member;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
+
+// Authentication routes
+
+Route::post('/register' , [AuthController::class , 'register']);
+
+Route::post('/login' , [AuthController::class , 'login']);
 
 Route::apiResource('authors' , AuthorController::class);
 
