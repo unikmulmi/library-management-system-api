@@ -34,4 +34,30 @@ class AuthController extends Controller
         ] , 201 );
 
     }
+
+    public function login(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        // Get the User with that email
+
+        $user = User::where('email' , $request->email)->first();
+
+        if (!$user || !Hash::check($request->password , $user->password) ){
+            return response()->json([
+                'message' => 'These Credentials are incorrect',
+            ]);
+        }
+
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()->json([
+            'success' => true,
+            'user' => new UserResource($user),
+            'token' => $token,
+        ]);
+    }
 }
