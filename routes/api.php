@@ -10,8 +10,6 @@ use App\Models\Author;
 use App\Models\Book;
 use App\Models\Borrowing;
 use App\Models\Member;
-use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/user', function (Request $request) {
