@@ -125,7 +125,6 @@ All API endpoints are protected by Laravel Sanctum authentication.
       <img src="screenshots/is overdue.png" width="100%">
     </td>
   </tr>
-  <tr>
 
 <tr>
   <td colspan="2">
