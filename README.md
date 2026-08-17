@@ -36,6 +36,8 @@ This project demonstrates Laravel's REST API capabilities, including Eloquent re
 
 ## API Endpoints
 
+> **Note on versioning:** Core resource endpoints (`authors`, `books`, `members`, `borrowings`) are versioned under `/api/v1`. Auth endpoints (`login`, `register`, `logout`) are unversioned since they're unlikely to change shape. `GET /api/v2/books/latest` is versioned separately to demonstrate how a breaking or alternate response format would be introduced without affecting `v1` consumers.
+
 All API endpoints are protected by Laravel Sanctum authentication.
 
 ### Authentication
