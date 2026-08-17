@@ -36,9 +36,9 @@ This project demonstrates Laravel's REST API capabilities, including Eloquent re
 
 ## API Endpoints
 
-> **Note on versioning:** Core resource endpoints (`authors`, `books`, `members`, `borrowings`) are versioned under `/api/v1`. Auth endpoints (`login`, `register`, `logout`) are unversioned since they're unlikely to change shape. `GET /api/v2/books/latest` is versioned separately to demonstrate how a breaking or alternate response format would be introduced without affecting `v1` consumers.
+> **Note on versioning:** Core resource endpoints (`authors`, `books`, `members`, `borrowings`) are versioned under `/api/v1`. Auth endpoints (`login`, `register`, `logout`) are unversioned since they're unlikely to change shape. GET /api/v2/books/latest is versioned separately to demonstrate how a new API version can be introduced without affecting v1 consumers.
 
-All API endpoints are protected by Laravel Sanctum authentication.
+Protected API endpoints require Laravel Sanctum authentication.
 
 ### Authentication
 
@@ -48,7 +48,6 @@ All API endpoints are protected by Laravel Sanctum authentication.
 | `POST` | `/api/register` | Register a new user |
 | `POST` | `/api/logout` | Logout and revoke the current token |
 | `GET` | `/api/users` | Retrieve authenticated users |
-| `GET` | `/api/v1/statistics` | Retrieve library statistics |
 
 ### Authors
 
@@ -90,7 +89,11 @@ All API endpoints are protected by Laravel Sanctum authentication.
 | `POST` | `/api/v1/borrowings/{borrowing}/return` | Return a borrowed book |
 | `GET` | `/api/v1/borrowings/overdue/list` | Retrieve overdue borrowings |
 
+### Statistics
 
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/api/v1/statistics` | Retrieve library statistics |
 
 ## Screenshots
 
