@@ -213,4 +213,4 @@ The API endpoints can be tested using **Postman**. Authenticate using the `/api/
 
 ## License
 
-This project is open-sourced under the [MIT License](LICENSE).
+This project is built as an internship deliverable and portfolio showcase. Not for commercial redistribution without explicit permission.
