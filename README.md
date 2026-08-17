@@ -121,20 +121,18 @@ All API endpoints are protected by Laravel Sanctum authentication.
       <img src="screenshots/borrowings.png" width="100%">
     </td>
     <td width="50%">
-      <strong>Borrowing Records</strong><br><br>
-      <img src="screenshots/get borrowings.png" width="100%">
-    </td>
-  </tr>
-  <tr>
-    <td width="50%">
       <strong>Overdue Status</strong><br><br>
       <img src="screenshots/is overdue.png" width="100%">
     </td>
-    <td width="50%">
-      <strong>Statistics</strong><br><br>
-      <img src="screenshots/stats.png" width="100%">
-    </td>
   </tr>
+  <tr>
+
+<tr>
+  <td colspan="2">
+    <strong>Statistics</strong><br><br>
+    <img src="screenshots/stats.png" width="100%">
+  </td>
+</tr>
 </table>
 
 
